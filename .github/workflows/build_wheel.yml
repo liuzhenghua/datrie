@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: true  # 下载子模块
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,7 +27,7 @@ jobs:
         run: cibuildwheel --output-dir wheelhouse
         env:
           CIBW_ARCHS_WINDOWS: AMD64
-          CIBW_SKIP: "cp36* cp37*"
+          CIBW_SKIP: "cp36* cp37* cp38* cp39* cp310*"
 
       - name: Upload wheels
         uses: actions/upload-artifact@v4
