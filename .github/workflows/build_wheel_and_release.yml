@@ -49,5 +49,5 @@ jobs:
         run: |
           for wheel in wheelhouse/*.whl; do
             echo "Uploading $wheel"
-            gh release upload v1.0 "$wheel"
+            gh release upload v1.0.0 "$wheel"
           done
