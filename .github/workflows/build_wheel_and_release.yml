@@ -54,5 +54,5 @@ jobs:
         run: |
           for wheel in wheelhouse/*.whl; do
             echo "Uploading $wheel"
-            gh release upload "${{ steps.create_release.outputs.tag_name }}" "$wheel"
+            gh release upload "$TAG_NAME" "$wheel"
           done
