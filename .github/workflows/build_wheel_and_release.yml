@@ -42,12 +42,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload wheels to Release
+      - name: Upload each wheel to GitHub Releases (Bash)
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for wheel in wheelhouse/*.whl; do
             echo "Uploading $wheel"
-            curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Content-Type: application/octet-stream" \
-              --data-binary @"$wheel" \
-              "https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=$(basename $wheel)"
+            gh release upload v1.0 "$wheel"
           done
