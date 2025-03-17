@@ -30,12 +30,17 @@ jobs:
           CIBW_BUILD: "cp311*"
           CIBW_SKIP: "cp36* cp37* cp38* cp39* cp310* pp*"
 
+      - name: Generate Timestamp
+        id: timestamp
+        run: echo "TAG_NAME=v$(date +'%Y%m%d%H%M')" >> $GITHUB_ENV
+        shell: bash
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: 'v${{ format("yyyymmddHHmm", github.event_time) }}'
-          release_name: 'Auto Release - v${{ format("yyyymmddHHmm", github.event_time) }}'
+          tag_name: ${{env.TAG_NAME}}
+          release_name: 'Auto Release - ${{env.TAG_NAME}}'
           body: 'Release notes for v1.0.0'
           draft: false
           prerelease: false
